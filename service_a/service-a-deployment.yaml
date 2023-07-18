@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-a
+  template:
+    metadata:
+      labels:
+        app: service-a
+    spec:
+      containers:
+        - name: service-a
+          image: alckasoc/service-a:v1
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+      volumes:
+        - name: data-volume
+          # emptyDir: {}
+          hostPath:
+            path: /c/Users/tuvin/OneDrive/Desktop/kubernetes-1/service_a/data
+            # path: C:/Users/tuvin/OneDrive/Desktop/kubernetes-1/service_a/data
+          #   type: DirectoryOrCreate
